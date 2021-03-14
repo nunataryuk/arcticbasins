@@ -7,7 +7,9 @@ a combination of GRASS GIS, GDAL,Python and QGIS as described in the blog
 is available on [GitHub.com](https://github.com). 
 
 The basin data is available for different regions as ESRI shape files projected to EASE-grid 
-north ([EPSG:6931](https://epsg.io/6931)).
+north ([EPSG:6931](https://epsg.io/6931)). Version 01 (v01) available is extracted from DEM data 
+resampled to 90m and nearest neighbour. The final vector map contains Basins larger than 50 square kilometers.
+The xml files with each regional dataset contain the parameterisations for creating each Regional Basin file.
 
 The mapping of Arctic Basins is part of the EU funded project [NUNATARYUK](https://nunataryuk.org). 
 NUNATARYUK aims at determining the impacts of thawing coastal and subsea permafrost on the global climate, 
