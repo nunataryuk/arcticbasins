@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='utf-8'?>
+<basindelineate>
+	<userproj userid = 'karttur' projectid = 'karttur' tractid= 'nordichydro' alias ='nordichydro_v01' siteid = '*' plotid = '*' system = 'ease2n'></userproj>
+
+	<!-- Define processing -->
+	<process processid ='BasinDelineate'>
+		<filecheck>N</filecheck>
+		<overwrite>Y</overwrite>
+		<delete>N</delete>
+		<parameters
+			stage = '0'
+			
+			grassDEM = 'DEM@PERMANENT'
+		
+			adjacentDist = '-1'
+			
+			outlet = 'mouth'
+			
+			distill = 'mouth'
+			
+			clusterOutlet = 'maximum'
+			
+			basinCellThreshold='2000'
+			
+			minBasinCells='6000'
+			
+			watershed='MFD5'
+			
+			terminalClumpCellThreshold = '16'
+			
+			fillDirCells = '1'
+			
+			fillSQL = ''
+			
+			invertedFillDirCells ='1'
+			
+			invertedFillValue = 'nbdemq1'
+			
+			invertedFillSQL = 'nbupmax &gt; 250 AND nbupmax &lt; 50000 AND nbupq3 &lt; 250'
+
+			tileCellSize = '1000'
+			
+			tileCellOverlap = '10'
+			
+			proj4CRS = '+proj=laea +lat_0=90 +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs'
+			
+			verbose = '2'
+		>
+		</parameters>
+		<srcpath volume = "GRASS2020"></srcpath>
+		<dstpath volume = "GRASS2020"></dstpath>
+
+		<comp>
+			<!-- You have to include the source DEM used for the basin delineation. 
+				The path to any data source is set on the following composition:
+				/Volumes/GRASS2020/MODIS/SRTM/region/basin/amazonia/0/DEM_SRTM_amazonia_0_cgiar-250.tif
+				The setting below, in combination with the srcpath, tractd and system above
+				will point to a DEM at:   
+				/Volumes/<srcpath volume>/<userproj system>/<comp .. product>/region/<comp .. folder>/<userproj alias>/0/
+				<comp .. prefix>_<comp .. product>_<userproj tractid>_0_<comp .. suffix>.tif
+			-->
+			<DEM source = "ESA-DUE" product = "ESA-DUE" folder = "basin" band = "DEM" prefix = "DEM" suffix = "v01">
+			</DEM>
+			
+			<!-- To set a defualt path for the data exported from GRASS duing the processing, you need to define
+			 	that in a tag called <system>, otherwise the settings from the <DEM> tag will be used.
+			-->
+			<system source = "ESA-DUE" product = "drainage" folder = "basin" band = "system" prefix = "system" suffix = "v01">
+			</system>
+			
+		  	<all-outlets-pt source = "ESA-DUE" product = "drainage" folder = "basin" band = "all-outlets-pt" prefix = "all-outlets-pt" suffix = "v01">
+			</all-outlets-pt>
+
+			<shorewall-pt source = "ESA-DUE" product = "drainage" folder = "basin" band = "shorewall-pt" prefix = "shorewall-pt" suffix = "v01">
+			</shorewall-pt>
+
+			<!--               q
+			You can add the predefiend name ("prefix")of any of the spatial datasets defined in the processing
+			as outlind below, and the output path and name will be set accordingly.
+			The GRASS GIS internal naming is hardcoded.
+			
+			<all-outlets-pt source = "ESA-DUE" product = "drainage" folder = "basin" band = "all-outlets-pt" prefix = "all-outlets-pt-version-x" suffix = "v01">
+			</all-outlets-pt>
+
+			<shorewall-pt source = "ESA-DUE" product = "drainage" folder = "basin" band = "shorewall-pt" prefix = "shorewall-pt-version-y" suffix = "v01">
+			</shorewall-pt>
+			-->
+		</comp>
+
+	</process>
+
+</basindelineate>
+
+
+
